@@ -18,6 +18,8 @@ public class Transacao {
     }
 
     // Getters e Setters
+
+
     public String getTipo() {
         return tipo;
     }

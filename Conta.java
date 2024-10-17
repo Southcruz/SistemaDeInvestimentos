@@ -60,6 +60,7 @@ public class Conta {
         System.out.println("Transações: " + transacoes.size());
     }
 
+
     // Método para adicionar um investimento à conta
     public void adicionarInvestimento(Investimento investimento) {
         if (investimento != null) {
@@ -78,4 +79,6 @@ public class Conta {
             System.out.println("Investimento não encontrado.");
         }
     }
+
+
 }

@@ -10,6 +10,13 @@ public class Investimento {
     public Investimento() {
     }
 
+    public double calcularValorAtual() {
+        return this.quantidade * this.precoAtual;
+    }
+    public void atualizarPreco(float novoPreco) {
+        this.precoAtual = novoPreco;
+    }
+
     // Getters e Setters
     public int getId() {
         return id;
