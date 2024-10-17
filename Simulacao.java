@@ -1,37 +1,22 @@
+import java.time.LocalDate;
+
 public class Simulacao {
-    private int id;
     private Investimento investimento;
-    private int quantidade;
-    private double precoSimulado;
-    private double resultado;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
 
-    public Simulacao(int id, Investimento investimento, int quantidade, double precoSimulado){
-        this.id = id;
+    // Construtor para inicializar a simulação com o investimento e as datas
+    public Simulacao(Investimento investimento, LocalDate dataInicio, LocalDate dataFim)
+            throws IllegalArgumentException {
+        if (dataFim.isBefore(dataInicio)) {
+            throw new IllegalArgumentException("A data final não pode ser anterior à data de início.");
+        }
         this.investimento = investimento;
-        this.quantidade = quantidade;
-        this.precoSimulado = precoSimulado;
-    }
-    public void simularInvestimento(){
-        resultado = calcularResultadoSimulacao();
-        System.out.println("Simulação realizada para o investimento: " + investimento.getInstituicao());
-        System.out.println("Preço Simulado: " + precoSimulado);
-        System.out.println("Quantidade: " + quantidade);
-        System.out.println("Resultado da Simulação: " + resultado);
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
     }
 
-    public double calcularResultadoSimulacao(){
-        double precoAtual = investimento.getPrecoAtual();
-        return (precoSimulado - precoAtual) * quantidade;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters e Setters
     public Investimento getInvestimento() {
         return investimento;
     }
@@ -40,23 +25,71 @@ public class Simulacao {
         this.investimento = investimento;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public LocalDate getDataInicio() {
+        return dataInicio;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
-    public double getPrecoSimulado() {
-        return precoSimulado;
+    public LocalDate getDataFim() {
+        return dataFim;
     }
 
-    public void setPrecoSimulado(double precoSimulado) {
-        this.precoSimulado = precoSimulado;
+    public void setDataFim(LocalDate dataFim) throws IllegalArgumentException {
+        if (dataFim.isBefore(dataInicio)) {
+            throw new IllegalArgumentException("A data final não pode ser anterior à data de início.");
+        }
+        this.dataFim = dataFim;
     }
 
-    public double getResultado() {
-        return resultado;
+    // Método para calcular o período da simulação em dias
+    public long calcularPeriodoSimulacao() {
+        return dataInicio.until(dataFim).getDays();
+    }
+
+    // Método para simular o rendimento do investimento
+    public float simularRendimento() throws UnsupportedOperationException {
+        long dias = calcularPeriodoSimulacao();
+
+        // Se o investimento for do tipo Renda Fixa
+        if (investimento instanceof RendaFixa) {
+            RendaFixa rendaFixa = (RendaFixa) investimento;
+            return calcularRendimentoRendaFixa(rendaFixa, dias);
+
+            // Se o investimento for do tipo Renda Variável
+        } else if (investimento instanceof RendaVariavel) {
+            RendaVariavel rendaVariavel = (RendaVariavel) investimento;
+            return calcularRendimentoRendaVariavel(rendaVariavel, dias);
+        }
+
+        throw new UnsupportedOperationException("Tipo de investimento não suportado para simulação.");
+    }
+
+    // Método privado para simular rendimento de Renda Fixa
+    private float calcularRendimentoRendaFixa(RendaFixa rendaFixa, long dias) {
+        float taxaDiaria = rendaFixa.getTaxaJuros() / 365; // Supondo taxa anual
+        return rendaFixa.getValorInicial() * (1 + taxaDiaria * dias);
+    }
+
+    // Método privado para simular rendimento de Renda Variável
+    private float calcularRendimentoRendaVariavel(RendaVariavel rendaVariavel, long dias) {
+        float fatorVolatilidade = rendaVariavel.getVolatilidade() / 100; // Volatilidade como porcentagem
+        return rendaVariavel.getPrecoAtual() * (1 + fatorVolatilidade * dias); // Simplificação da simulação
+    }
+
+    // Método para exibir o relatório de simulação
+    public void exibirRelatorioSimulacao() {
+        System.out.println("Relatório de Simulação");
+        System.out.println("Investimento: " + investimento.getTipo());
+        System.out.println("Data de Início: " + dataInicio);
+        System.out.println("Data de Fim: " + dataFim);
+        System.out.println("Período Simulado: " + calcularPeriodoSimulacao() + " dias");
+        try {
+            System.out.println("Rendimento Estimado: R$ " + simularRendimento());
+        } catch (UnsupportedOperationException e) {
+            System.out.println("Erro na simulação: " + e.getMessage());
+        }
     }
 }

@@ -1,22 +1,18 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Investidor {
-    public static void main(String[] args) {
-        Investidor investidor = new Investidor();
-        investidor.cadastrar();
-    }
-
     private String cpf;
     private String nome;
     private String email;
     private String senha;
     private Conta conta;
 
-    // Construtor padrão 
+    // Construtor padrão
     public Investidor() {
     }
 
-    // Construtor com parâmetos
+    // Construtor com parâmetros
     public Investidor(String cpf, String nome, String email, String senha, Conta conta) {
         this.cpf = cpf;
         this.nome = nome;
@@ -69,26 +65,31 @@ public class Investidor {
     // Método para cadastrar o investidor
     public void cadastrar() {
         Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.print("Digite o CPF: ");
+            this.cpf = scanner.nextLine();
 
-        System.out.print("Digite o CPF: ");
-        this.cpf = scanner.nextLine();
+            System.out.print("Digite o nome: ");
+            this.nome = scanner.nextLine();
 
-        System.out.print("Digite o nome: ");
-        this.nome = scanner.nextLine();
+            System.out.print("Digite o email: ");
+            this.email = scanner.nextLine();
 
-        System.out.print("Digite o email: ");
-        this.email = scanner.nextLine();
+            System.out.print("Digite a senha: ");
+            this.senha = scanner.nextLine();
 
-        System.out.print("Digite a senha: ");
-        this.senha = scanner.nextLine();
+            System.out.print("Digite o número da conta: ");
+            String numeroConta = scanner.nextLine();
+            this.conta = new Conta(numeroConta, 0);
 
-        System.out.print("Digite o número da conta: ");
-        String numeroConta = scanner.nextLine();
-        this.conta = new Conta(numeroConta, 0);
-
-        System.out.println("Investidor cadastrado com sucesso!");
-
-        scanner.close();
+            System.out.println("Investidor cadastrado com sucesso!");
+        } catch (InputMismatchException e) {
+            System.out.println("Erro de entrada: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
     }
 
     // Método para o investidor realizar o login
@@ -102,7 +103,7 @@ public class Investidor {
         }
     }
 
-     // Método para o investidor realizar o login
+    // Método para o investidor realizar o logout
     public void logout() {
         System.out.println("Logout realizado com sucesso!");
     }
