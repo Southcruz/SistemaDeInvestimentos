@@ -1,10 +1,13 @@
+import java.time.LocalDateTime;
+
 public class RendaFixa extends Investimento {
-    private date dataVencimento;
+    private LocalDateTime dataVencimento;
     private float taxaJuros;
     private float valorInicial;
 
     // Construtor
-    public RendaFixa(date dataVencimento, float taxaJuros, float valorInicial) {
+    public RendaFixa(LocalDateTime dataVencimento, float taxaJuros, float valorInicial) {
+        super(getId(), getTipo(), getInstituicao(), getQuantidade(), taxaJuros, valorInicial);
         this.dataVencimento = dataVencimento;
         this.taxaJuros = taxaJuros;
         this.valorInicial = valorInicial;
@@ -12,15 +15,15 @@ public class RendaFixa extends Investimento {
 
     // Método para calcular o rendimento
     public float calcularRendimento() {
-        
+        return 0;
     }
 
     // Getters e setters
-    public date getDataVencimento() {
+    public LocalDateTime getDataVencimento() {
         return dataVencimento;
     }
 
-    public void setDataVencimento(date dataVencimento) {
+    public void setDataVencimento(LocalDateTime dataVencimento) {
         this.dataVencimento = dataVencimento;
     }
 

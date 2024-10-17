@@ -4,18 +4,26 @@ public class RendaVariavel extends Investimento {
 
     // Construtor
     public RendaVariavel(float volatilidade, float dividendos) {
+        super(id, tipo, instituicao, quantidade, volatilidade, dividendos);
+        // Inicializa os valores necessários
+        int id = this.getId();
+        String tipo = this.getTipo();
+        String instituicao = this.getInstituicao();
+        int quantidade = this.getQuantidade();
+    
+    
         this.volatilidade = volatilidade;
         this.dividendos = dividendos;
     }
 
     // Métodos para calcular o valor de mercado
     public float calcularValorMercado() {
-        
+        return 0;
     }
 
     // Métodos para calcular os dividendos
     public float calcularDividendos() {
-       
+       return 0;
     }
 
     // Getters e Setters
@@ -35,3 +43,5 @@ public class RendaVariavel extends Investimento {
         this.dividendos = dividendos;
     }
 }
+
+
