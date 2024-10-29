@@ -34,8 +34,7 @@ public class Main {
                     float saldoInicial = scanner.nextFloat();
                     scanner.nextLine();
 
-                    Conta conta = new Conta(numeroConta, saldoInicial);
-                    investidor = new Investidor(cpf, nome, email, senha, conta);
+                    investidor = new Investidor(cpf, nome, email, senha, numeroConta, saldoInicial);
                     System.out.println("Conta criada com sucesso!");
                     break;
                 

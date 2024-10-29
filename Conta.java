@@ -3,18 +3,18 @@ import java.util.List;
 
 public class Conta {
     private String numero;
-    private float saldoDisponivel;
+    private double saldoDisponivel;
     private List<Investimento> investimentos;
     private List<Transacao> transacoes;
 
     // Construtor padrão
-    public Conta() {
+    public Conta(double saldoInicial) {
         this.investimentos = new ArrayList<>();
         this.transacoes = new ArrayList<>();
     }
 
     // Construtor com parâmetros
-    public Conta(String numero, float saldoInicial) throws IllegalArgumentException {
+    public Conta(String numero, double saldoInicial) throws IllegalArgumentException {
         if (saldoInicial < 0) {
             throw new IllegalArgumentException("O saldo inicial não pode ser negativo.");
         }
@@ -33,7 +33,7 @@ public class Conta {
         this.numero = numero;
     }
 
-    public float getSaldoDisponivel() {
+    public double getSaldoDisponivel() {
         return saldoDisponivel;
     }
 

@@ -1,6 +1,3 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Investidor {
     private String cpf;
     private String nome;
@@ -13,12 +10,12 @@ public class Investidor {
     }
 
     // Construtor com parâmetros
-    public Investidor(String cpf, String nome, String email, String senha, Conta conta) {
+    public Investidor(String cpf, String nome, String email, String senha, String numero, double saldoInicial) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.conta = conta;
+        this.conta = new Conta(numero, saldoInicial);
     }
 
     // Getters e Setters
@@ -62,37 +59,10 @@ public class Investidor {
         this.conta = conta;
     }
 
-    // Método para cadastrar o investidor
-    public void cadastrar() {
-        Scanner scanner = new Scanner(System.in);
-        try {
-            System.out.print("Digite o CPF: ");
-            this.cpf = scanner.nextLine();
-
-            System.out.print("Digite o nome: ");
-            this.nome = scanner.nextLine();
-
-            System.out.print("Digite o email: ");
-            this.email = scanner.nextLine();
-
-            System.out.print("Digite a senha: ");
-            this.senha = scanner.nextLine();
-
-            System.out.print("Digite o número da conta: ");
-            String numeroConta = scanner.nextLine();
-            this.conta = new Conta(numeroConta, 0);
-
-            System.out.println("Investidor cadastrado com sucesso!");
-        } catch (InputMismatchException e) {
-            System.out.println("Erro de entrada: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Erro: " + e.getMessage());
-        } finally {
-            scanner.close();
-        }
+    public void logout() {
+        System.out.println("Logout realizado com sucesso!");
     }
 
-    // Método para o investidor realizar o login
     public boolean login(String email, String senha) {
         if (this.email.equals(email) && this.senha.equals(senha)) {
             System.out.println("Login realizado com sucesso!");
@@ -102,9 +72,5 @@ public class Investidor {
             return false;
         }
     }
-
-    // Método para o investidor realizar o logout
-    public void logout() {
-        System.out.println("Logout realizado com sucesso!");
-    }
+    
 }
