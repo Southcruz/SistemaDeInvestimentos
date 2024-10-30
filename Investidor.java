@@ -18,6 +18,7 @@ public class Investidor {
         this.conta = new Conta(numero, saldoInicial);
     }
 
+
     // Getters e Setters
     public String getCpf() {
         return cpf;
@@ -73,4 +74,21 @@ public class Investidor {
         }
     }
     
+    public void excluirCadastro() {
+        // Limpar dados da conta associada
+        if (conta != null) {
+            conta.getInvestimentos().clear();
+            conta.getTransacoes().clear();
+        }
+
+        // Redefinir dados do investidor
+        this.cpf = null;
+        this.nome = null;
+        this.email = null;
+        this.senha = null;
+        this.conta = null;
+
+        System.out.println("Cadastro do investidor excluído com sucesso.");
+    }
+
 }

@@ -67,7 +67,8 @@ public class Main {
                         System.out.println("3. Resgatar Investimentos");
                         System.out.println("4. Realizar Transação");
                         System.out.println("5. Simulação de Investimentos");
-                        System.out.println("6. Logout");
+                        System.out.println("6. Excluir cadastro");
+                        System.out.println("7. Logout");
                         System.out.print("Escolha uma opção: ");
                         int opcaoMenu2 = scanner.nextInt();
                         scanner.nextLine();
@@ -167,6 +168,13 @@ public class Main {
                                 break;
 
                             case 6:
+                                investidor.excluirCadastro();
+                                loggedIn = false;
+                                investidor = null;  // Remover referência ao investidor excluído
+                                System.out.println("Você foi deslogado e o cadastro foi excluído.");
+                                break;
+
+                            case 7:
                                 // Logout
                                 investidor.logout();
                                 loggedIn = false;
